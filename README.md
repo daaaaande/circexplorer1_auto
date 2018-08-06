@@ -16,5 +16,5 @@ the output ought to be in the same format than auto_find_circ, so some changes:
 
 
 # compared to find_circ_auto:
- the scripts that handle those are of course different, the upper automation layers are close to the find_circ_auto repo with minor differences:
+ the scripts that handle the commands until the outputfiles are readable for the matrixmaker are of course different, the upper automation layers are close to the find_circ_auto repo with minor differences:
  - the group/processsed.tsv instead of .csv: the files ate tab separated anyway, so using the corresponding .tsv here
