@@ -237,7 +237,7 @@ open(OU,">",$outfile)|| die "$!";
 ############################################################################ actual output file craetion- sorting by coordinates ald listing info for each sample, adding some info
 
 # file header
-print OU "coordinates\tstrand\tRefseqID\tGene\tknown_circ\tnum_samples_present\ttotal_sum_unique_counts\tqualities\tpresent_in_sample\t";
+print OU "coordinates\tstrand\tRefseqID\tGene\tknown_circ\tnum_samples_present\ttotal_sum_unique_counts\tpresent_in_sample\t";
 foreach my $sampls  (@allenames) {
 	print OU "sample\t-unique_count\t-qualA\t-qualB\t"; # $sampls not in same order as below, need to change it
 }
@@ -336,6 +336,7 @@ for(my$count=0;$count<scalar(@allecooords);$count++){
 				$twoquals =~ s/\s+/;/;
 				$allquas = "$allquas,$twoquals";
 				$allquas =~s/\s+//g;
+				$allquas=~s/[A-z]//g;
 				$totalcounts=$totalcounts + $findnum;
 				$ni=$totalcounts;
 				$allsamplehit++;
@@ -365,7 +366,7 @@ for(my$count=0;$count<scalar(@allecooords);$count++){
 	$basicinfo=~s/\n//g;
 	$gene_name=~s/\n//g;
 	if(((($circcand=~/\:/)&&($presencething=~/[a-z]/)))){
-		my$linestring="$circcand\t$basicinfo\t$gene_name\t$circn\t$allsamplehit\t$ni\t$allquas\t$presencething\t$allsamplelines\n";
+		my$linestring="$circcand\t$basicinfo\t$gene_name\t$circn\t$allsamplehit\t$ni\t$presencething\t$allsamplelines\n";
 		$linestring  =~s/\t\t/\t/g;
 
 	 	print OU $linestring;

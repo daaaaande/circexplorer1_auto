@@ -36,7 +36,7 @@ mkdir "run_$samplename";
 # about 30 min in single core
 my$tophatout=system("STAR --chimSegmentMin 10 --runThreadN 10 --genomeDir . --readFilesIn $fullfileone $fullfiletwo");
 # creates auto_$samplename dir in test/
-print ER "errors during tophat alignement:\n $tophatout\n";
+print ER "errors during STAR alignment:\n $tophatout\n";
 
 
 my$btofq= system("star_parse.py Chimeric.out.junction fusion_junction.txt");
