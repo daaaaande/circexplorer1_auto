@@ -5,7 +5,7 @@ use strict;
 my$currdir=`pwd`;
 my$starttime= time;
 
-open(ER,'>>',"~/logfile_auto.log")||die "$!";		# global logfile
+open(ER,'>>',"/home/daniel/logfile_auto.log")||die "$!";		# global logfile
 
 system("rm Chimeric.out.junction");
 system("rm fusion_junction.txt");
@@ -29,6 +29,8 @@ chomp $samplename;
 my$fullfileone="$infile1";
 my$fullfiletwo="$infile2";
 
+print ER "-------------------------------------------------\nsample $samplename processing:\n";
+
 #### start of circexplorer1
 mkdir "run_$samplename";
 # make dir, move files there, one dir per sample per group
@@ -48,6 +50,6 @@ my$tophattwoout=system("CIRCexplorer.py -j fusion_junction.txt -g hg19.fa -r hg1
 system("mv CIRCexplorer_circ.txt run_$samplename/");
 
 my$fulltime=((time - $starttime)/60);
-
+print ER "############################################################\nsample $samplename done :\n";
 print ER "errors running circexplorer1:\n$tophattwoout\n";
 print ER "done processing $samplename in $fulltime minutes \n";
