@@ -24,8 +24,10 @@ foreach my $singleline (@lines){
 		chomp $samplename;
 		chomp $fileone;
 		chomp $filetwo;
-		print ER "##############################################################\n";
-		print ER "finding circs in sample $samplename...\n";
+		my$tim=localtime();
+	print ER "##############################################################\n";
+	print ER "starting @ $tim \nfinding circs in sample $samplename with circexplorer1...\n";
+
 		$error=system("perl circexplorer1_starter_1.pl $fileone $filetwo $samplename");
 		my$err2=system("perl circexplorer1_out_reader.pl run_$samplename/CIRCexplorer_circ.txt run_$samplename/$samplename.processed.tsv $samplename");
 		# will dump file into run_$samplename/$samplename_processed.tsv, this to be done for every file
