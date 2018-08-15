@@ -5,8 +5,6 @@ system("clear");
 
 open(ER,'>>',"/home/daniel/logfile_auto.log")||die "$!";		# global logfile
 
-system("rm auto.bam.*.bam");# just deleting leftovers to be sure
-system("rm tmp_*.bam");
 
 my$inputfile=$ARGV[0];
 chomp$inputfile;
@@ -26,7 +24,8 @@ foreach my $singleline (@lines){
 		chomp $samplename;
 		chomp $fileone;
 		chomp $filetwo;
-		print "finding circs in sample $samplename...\n";
+		print ER "##############################################################\n";
+		print ER "finding circs in sample $samplename...\n";
 		$error=system("perl circexplorer1_starter_1.pl $fileone $filetwo $samplename");
 		my$err2=system("perl circexplorer1_out_reader.pl run_$samplename/CIRCexplorer_circ.txt run_$samplename/$samplename.processed.tsv $samplename");
 		# will dump file into run_$samplename/$samplename_processed.tsv, this to be done for every file
@@ -65,11 +64,15 @@ foreach my $groupname (@groups){
 
 }
 #
-my$erralcat=system("cat all_run_$date/* >all_run_$date.allbeds.out");
-my$erralm1=system("perl matrixmaker.pl all_run_$date/all_run_$date.allbeds.out all_run_$date/allsamples_matrix.tsv");
-my$err_mat2=system("perl matrixtwo.pl all_run_$date/allsamples_matrix.tsv all_run_$date/allsamples_m_heatmap.tsv");
+my$erralcat=system("cat all_run_$date/* >all_run_$date.allbeds.circex1.out");
+my$erralm1=system("perl matrixmaker.pl all_run_$date/all_run_$date.allbeds.circex1.out all_run_$date/allsamples_matrix.circex1.tsv");
+my$err_mat2=system("perl matrixtwo.pl all_run_$date/allsamples_matrix.circex1.tsv all_run_$date/allsamples_m_heatmap.circex1.tsv");
 
 print "error making files in all_run_$date :\ncat:\t$erralcat\nmatrix 1 creation:\t$erralm1 \nmatrix 2 creation:\n$err_mat2\n";
+
+# now copy two matrix files into find_circ dir
+my$errtransfer=system("cp all_run_$date/*.tsv /media/daniel/NGS1/RNASeq/find_circ/all_run_$date/");
+print ER "transfering matrix to find_circ dir errors: \n$errtransfer\n";
 
 
 print ER "finished with all groups\n";
