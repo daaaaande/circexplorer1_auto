@@ -32,7 +32,7 @@ foreach my $singleline (@lines){
 		$error=system("perl circexplorer1_auto/circexplorer1_starter_1.pl $fileone $filetwo $samplename");
 		my$err2=system("perl circexplorer1_auto/circexplorer1_out_reader.pl run_$samplename/CIRCexplorer_circ.txt run_$samplename/$samplename.processed.tsv $samplename");
 		# will dump file into run_$samplename/$samplename_processed.tsv, this to be done for every file
-		my$erdel=system("rm $fileone $filetwo");
+	#	my$erdel=system("rm $fileone $filetwo");
 
 		print ER "errors executing circexplorer1:\n$error\nerrors executing circex1circexplorer1_out_reader:\n$err2\nerrors deleting files:\n$erdel\n";
 		if($groupname=~/[a-z]/gi){
@@ -60,8 +60,8 @@ mkdir "all_run_$date";
 foreach my $groupname (@groups){
 	my$errseding=system("sed -i '1d' $groupname/*.tsv"); # will remove first line from steptwo output i.e headers
 	my$errcat=system("cat $groupname/*.tsv >$groupname/allsites_bedgroup_$groupname.csv");
-	my$errmatxrix=system("perl matrixmaker.pl $groupname/allsites_bedgroup_$groupname.csv $groupname/allcircs_matrixout.txt");
-	my$matrtmaker=system("perl matrixtwo.pl $groupname/allcircs_matrixout.txt $groupname/allc_matrixtwo.tsv");
+	my$errmatxrix=system("perl circexplorer1_auto/matrixmaker.pl $groupname/allsites_bedgroup_$groupname.csv $groupname/allcircs_matrixout.txt");
+	my$matrtmaker=system("perl circexplorer1_auto/matrixtwo.pl $groupname/allcircs_matrixout.txt $groupname/allc_matrixtwo.tsv");
 	print ER "errors catting $groupname .csv files together:\n$errcat\n";
 	system("cp $groupname/allsites_bedgroup_$groupname.csv all_run_$date/");
 	print ER "errors making matrix for $groupname/allsites_bedgroup_$groupname.csv :\n$errmatxrix\n";
@@ -69,9 +69,9 @@ foreach my $groupname (@groups){
 
 }
 #
-my$erralcat=system("cat all_run_$date/* >all_run_$date.allbeds.circex1.out");
-my$erralm1=system("perl matrixmaker.pl all_run_$date/all_run_$date.allbeds.circex1.out all_run_$date/allsamples_matrix.circex1.tsv");
-my$err_mat2=system("perl matrixtwo.pl all_run_$date/allsamples_matrix.circex1.tsv all_run_$date/allsamples_m_heatmap.circex1.tsv");
+my$erralcat=system("cat all_run_$date/* >all_run_$date/all_run_$date.allbeds.circex1.out");
+my$erralm1=system("perl circexplorer1_auto/matrixmaker.pl all_run_$date/all_run_$date.allbeds.circex1.out all_run_$date/allsamples_matrix.circex1.tsv");
+my$err_mat2=system("perl circexplorer1_auto/matrixtwo.pl all_run_$date/allsamples_matrix.circex1.tsv all_run_$date/allsamples_m_heatmap.circex1.tsv");
 
 print "error making files in all_run_$date :\ncat:\t$erralcat\nmatrix 1 creation:\t$erralm1 \nmatrix 2 creation:\n$err_mat2\n";
 
