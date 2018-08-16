@@ -5,6 +5,7 @@ system("clear");
 
 open(ER,'>>',"/home/daniel/logfile_auto.log")||die "$!";		# global logfile
 
+chdir "/media/daniel/NGS1/RNASeq/find_circ/circexplorer/CIRCexplorer/";
 
 my$inputfile=$ARGV[0];
 chomp$inputfile;
@@ -28,8 +29,8 @@ foreach my $singleline (@lines){
 	print ER "##############################################################\n";
 	print ER "starting @ $tim \nfinding circs in sample $samplename with circexplorer1...\n";
 
-		$error=system("perl circexplorer1_starter_1.pl $fileone $filetwo $samplename");
-		my$err2=system("perl circexplorer1_out_reader.pl run_$samplename/CIRCexplorer_circ.txt run_$samplename/$samplename.processed.tsv $samplename");
+		$error=system("perl circexplorer1_auto/circexplorer1_starter_1.pl $fileone $filetwo $samplename");
+		my$err2=system("perl circexplorer1_auto/circexplorer1_out_reader.pl run_$samplename/CIRCexplorer_circ.txt run_$samplename/$samplename.processed.tsv $samplename");
 		# will dump file into run_$samplename/$samplename_processed.tsv, this to be done for every file
 		my$erdel=system("rm $fileone $filetwo");
 

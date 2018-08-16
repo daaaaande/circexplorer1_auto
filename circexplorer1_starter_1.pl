@@ -6,6 +6,7 @@ my$currdir=`pwd`;
 my$starttime= time;
 
 open(ER,'>>',"/home/daniel/logfile_auto.log")||die "$!";		# global logfile
+chdir "/media/daniel/NGS1/RNASeq/find_circ/circexplorer/CIRCexplorer/";
 
 system("rm Chimeric.out.junction");
 system("rm fusion_junction.txt");
