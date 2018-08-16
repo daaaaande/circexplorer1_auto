@@ -31,7 +31,9 @@ foreach my $singleline (@lines){
 		$error=system("perl circexplorer1_starter_1.pl $fileone $filetwo $samplename");
 		my$err2=system("perl circexplorer1_out_reader.pl run_$samplename/CIRCexplorer_circ.txt run_$samplename/$samplename.processed.tsv $samplename");
 		# will dump file into run_$samplename/$samplename_processed.tsv, this to be done for every file
-		print ER "errors:\n$error\n$err2\n";
+		my$erdel=system("rm $fileone $filetwo");
+
+		print ER "errors executing circexplorer1:\n$error\nerrors executing circex1circexplorer1_out_reader:\n$err2\nerrors deleting files:\n$erdel\n";
 		if($groupname=~/[a-z]/gi){
 			if(!(grep(/$groupname/,@groups))){ # check if group already present
 				mkdir $groupname;		# IF NOT, MAKE GROUPDIR
