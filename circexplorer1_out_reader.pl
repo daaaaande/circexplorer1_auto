@@ -1,6 +1,7 @@
 #/usr/bin/perl -w
 use strict;
-
+# after circexplorer1_starter_1.pl , formats the output of circexplorer into for matrixmaker.pl readable format
+# remember that the score will be always the same for each line, as circexplorer gives one score per candidate, and find_circ gives two.
 # starting vars
 my$currdir=`pwd`;
 my$starttime= time;
