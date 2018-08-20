@@ -8,6 +8,17 @@ open(ER,'>>',"/home/daniel/logfile_auto.log")||die "$!";		# global logfile
 chdir "/media/daniel/NGS1/RNASeq/find_circ/circexplorer/CIRCexplorer/";
 
 my$inputfile=$ARGV[0];
+
+
+my$date= localtime();
+$date=~s/\s+/_/g;
+$date=~s/[0-9]//g;
+$date=~s/\://g;
+$date=~s/\_\_//g;
+mkdir "all_run_$date";
+
+
+
 chomp$inputfile;
 open(IN,$inputfile)|| die "$!";	# infile is a .csv file steptwo output.csv
 my@lines=<IN>;
@@ -48,12 +59,6 @@ foreach my $singleline (@lines){
 
 
 }
-my$date= localtime();
-$date=~s/\s+/_/g;
-$date=~s/[0-9]//g;
-$date=~s/\://g;
-$date=~s/\_\_//g;
-mkdir "all_run_$date";
 
 
 
