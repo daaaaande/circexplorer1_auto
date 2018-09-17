@@ -37,7 +37,7 @@ mkdir "run_$samplename";
 # make dir, move files there, one dir per sample per group
 
 # about 30 min in single core
-my$tophatout=system("STAR --chimSegmentMin 10 --runThreadN 10 --genomeDir . --readFilesIn $fullfileone $fullfiletwo");
+my$tophatout=system("STAR --chimSegmentMin 10 --runThreadN 10 --genomeDir . --readFilesIn ../../$fullfileone ../../$fullfiletwo");
 # creates auto_$samplename dir in test/
 print ER "errors during STAR alignment:\n $tophatout\n";
 
