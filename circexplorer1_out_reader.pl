@@ -36,6 +36,7 @@ foreach my$single_line (@alllines){
   my$read_name=$lineparts[15];
   if($unique_reads >= 2){       # filter parameter for find_circ and DCC: only show circRNA candidates with 2 or more reads
     my$csvfile="$fullcoord\t$strand\t$samplename\t$unique_reads\t$score\t$score\t$read_name";
+    $csvfile=~s/\t\t/\t/g;
     print OU "$csvfile\n";
   }
 }
