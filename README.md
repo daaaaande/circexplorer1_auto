@@ -25,7 +25,7 @@ the group will lead to auto_automaker making a directory named after the group w
 - install STAR aligner
 - build STAR index with hg19.fa and ensembl annotations
 - get filenames into the same dir, get a samplefile with files, samplename and group like find_circ_auto needs
-- protip: get a different name for each sample! (that means unique ones!)- that always needs at least one letter in its name! (697 and 697_r are not well suited, b697 and a697_r are!)
+- install circexplorer1
 
 
 
