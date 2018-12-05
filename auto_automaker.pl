@@ -84,14 +84,14 @@ foreach my $groupname (@groups){
 
 }
 #
-my$erralcat=system("cat $ndir/* >$ndir/$ndir.allbeds.circex1.out");
-my$erralm1=system("nice perl circexplorer1_auto/matrixmaker-V2.pl $ndir/$ndir.allbeds.circex1.out $ndir/allsamples_matrix.circex1.tsv");
-my$err_mat2=system("perl circexplorer1_auto/matrixtwo.pl $ndir/allsamples_matrix.circex1.tsv $ndir/allsamples_m_heatmap.circex1.tsv");
+my$erralcat=system("cat $ndir/*.tsv >$ndir/$ndir.allbeds.circex1.out");
+my$erralm1=system("nice perl circexplorer1_auto/matrixmaker-V2.pl $ndir/$ndir.allbeds.circex1.out $ndir/allsamples_matrix.circex1.mat1");
+my$err_mat2=system("perl circexplorer1_auto/matrixtwo.pl $ndir/allsamples_matrix.circex1.mat1 $ndir/allsamples_m_heatmap.circex1.mat2");
 
 print "error making files in $ndir :\ncat:\t$erralcat\nmatrix 1 creation:\t$erralm1 \nmatrix 2 creation:\n$err_mat2\n";
 
 # now copy two matrix files into find_circ dir
-my$errtransfer=system("cp $ndir/*.tsv /media/daniel/NGS1/RNASeq/find_circ/$ndir/");
+my$errtransfer=system("cp $ndir/*.mat* /media/daniel/NGS1/RNASeq/find_circ/$ndir/");
 print ER "transfering matrix to find_circ dir errors: \n$errtransfer\n";
 
 
