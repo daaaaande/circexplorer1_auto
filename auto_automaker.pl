@@ -75,7 +75,7 @@ foreach my $singleline (@lines){
 foreach my $groupname (@groups){
 	my$errseding=system("sed -i '1d' $groupname/*.tsv"); # will remove first line from steptwo output i.e headers
 	my$errcat=system("cat $groupname/*.tsv >$groupname/allsites_bedgroup_$groupname.csv");
-	my$errmatxrix=system("nice perl circexplorer1_auto/matrixmaker-V2.pl $groupname/allsites_bedgroup_$groupname.csv $groupname/allcircs_matrixout.txt");
+	my$errmatxrix=system("nice perl circexplorer1_auto/matrixmaker-V3_A.pl $groupname/allsites_bedgroup_$groupname.csv $groupname/allcircs_matrixout.txt");
 	my$matrtmaker=system("perl circexplorer1_auto/matrixtwo.pl $groupname/allcircs_matrixout.txt $groupname/allc_matrixtwo.tsv");
 	print ER "errors catting $groupname .csv files together:\n$errcat\n";
 	system("cp $groupname/allsites_bedgroup_$groupname.csv $ndir/");
@@ -85,7 +85,9 @@ foreach my $groupname (@groups){
 }
 #
 my$erralcat=system("cat $ndir/*.tsv >$ndir/$ndir.allbeds.circex1.out");
-my$erralm1=system("nice perl circexplorer1_auto/matrixmaker-V2.pl $ndir/$ndir.allbeds.circex1.out $ndir/allsamples_matrix.circex1.mat1");
+my$er_check_in=`perl circexplorer1_auto/matrix_infile_checker.pl $ndir/$ndir.allbeds.circex1.out`;
+print "checking the infile for circex1 matrix in $ndir ...\n$er_check_in \n";
+my$erralm1=system("nice perl circexplorer1_auto/matrixmaker-V3_A.pl $ndir/$ndir.allbeds.circex1.out $ndir/allsamples_matrix.circex1.mat1");
 my$err_mat2=system("perl circexplorer1_auto/matrixtwo.pl $ndir/allsamples_matrix.circex1.mat1 $ndir/allsamples_m_heatmap.circex1.mat2");
 
 print "error making files in $ndir :\ncat:\t$erralcat\nmatrix 1 creation:\t$erralm1 \nmatrix 2 creation:\n$err_mat2\n";
