@@ -84,7 +84,7 @@ foreach my $groupname (@groups){
 
 }
 #
-my$erralcat=system("cat $ndir/*.tsv >$ndir/$ndir.allbeds.circex1.out");
+my$erralcat=system("cat $ndir/*.csv >$ndir/$ndir.allbeds.circex1.out");
 my$er_check_in=`perl circexplorer1_auto/matrix_infile_checker.pl $ndir/$ndir.allbeds.circex1.out`;
 print "checking the infile for circex1 matrix in $ndir ...\n$er_check_in \n";
 my$erralm1=system("nice perl circexplorer1_auto/matrixmaker-V3_A.pl $ndir/$ndir.allbeds.circex1.out $ndir/allsamples_matrix.circex1.mat1");
