@@ -8,8 +8,8 @@ my$starttime= time;
 open(ER,'>>',"/home/daniel/logfile_auto.log")||die "$!";		# global logfile
 chdir "/media/daniel/NGS1/RNASeq/find_circ/circexplorer/CIRCexplorer/";
 
-system("rm Chimeric.out.junction");
-system("rm fusion_junction.txt");
+`rm Chimeric.out.junction`;
+`rm fusion_junction.txt`;
 
 # first get reference place for hg19
 my$bowtwiindexplace="/media/daniel/NGS1/RNASeq/find_circ/circexplorer/CIRCexplorer/";
@@ -30,25 +30,25 @@ chomp $samplename;
 my$fullfileone="$infile1";
 my$fullfiletwo="$infile2";
 
-print ER "-------------------------------------------------\nsample $samplename processing:\n";
+print ER "-\nsample $samplename processing:\n";
 
 #### start of circexplorer1
 mkdir "run_$samplename";
 # make dir, move files there, one dir per sample per group
 
 # about 30 min in single core
-my$tophatout=system("STAR --chimSegmentMin 10 --runThreadN 10 --genomeDir . --readFilesIn ../../$fullfileone ../../$fullfiletwo");
+my$tophatout=`STAR --chimSegmentMin 10 --runThreadN 10 --genomeDir . --readFilesIn ../../$fullfileone ../../$fullfiletwo`;
 # creates auto_$samplename dir in test/
 print ER "errors during STAR alignment:\n $tophatout\n";
 
 
-my$btofq= system("star_parse.py Chimeric.out.junction fusion_junction.txt");
+my$btofq= `star_parse.py Chimeric.out.junction fusion_junction.txt`;
 print ER "errors converting:\n $btofq\n";
-system("mv Chimeric.out.junction run_$samplename/");
+`mv Chimeric.out.junction run_$samplename/`;
 
-my$tophattwoout=system("CIRCexplorer.py -j fusion_junction.txt -g hg19.fa -r hg19_ref.txt");
+my$tophattwoout=`CIRCexplorer.py -j fusion_junction.txt -g hg19.fa -r hg19_ref.txt`;
 # now move all files into dir?
-system("mv CIRCexplorer_circ.txt run_$samplename/");
+`mv CIRCexplorer_circ.txt run_$samplename/`;
 
 my$fulltime=((time - $starttime)/60);
 print ER "############################################################\nsample $samplename done :\n";
