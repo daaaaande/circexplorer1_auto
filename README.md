@@ -1,3 +1,8 @@
+
+# a more up-to date and easy to use version available on GitLab!
+# https://gitlab.com/daaaaande/circs
+
+
 # circexplorer1_auto
 ## automating circexplorer 1 using STAR aligner
 the output ought to be in the same format than auto_find_circ, so some changes:
